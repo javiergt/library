@@ -1,0 +1,87 @@
+version: '3'
+
+services:
+  front_envoy:
+    build:
+      context: .
+      dockerfile: ./front-envoy/Dockerfile
+    networks:
+      - envoymesh
+    expose:
+      - 80
+      - 8001
+    ports:
+      - 8000:80
+      - 8001:8001
+
+  library_service:
+    build: 
+      context: .
+      dockerfile: ./library-service/Dockerfile
+    restart: always
+    networks:
+      envoymesh:
+        aliases:
+          - library_service
+    depends_on:
+      - postgres_library
+    expose:
+      - 80
+    environment:
+      DB_CONNECTION_STRING: host=postgres_library port=5432 user=postgres dbname=library password=P@ssword sslmode=disable
+      AUTH_SERVICE_URL: localhost:80
+
+  auth_service:
+      build:
+        context: .
+        dockerfile: ./auth-service/AuthService/Dockerfile
+      restart: always
+      networks:
+        envoymesh:
+          aliases:
+            - auth_service
+      depends_on:
+        - postgres_auth
+      expose:
+        - 80
+  
+  postgres_auth:
+    image: postgres
+    restart: always
+    networks:
+      envoymesh:
+        aliases:
+          - postgres_auth
+    environment:
+      POSTGRES_PASSWORD: P@ssword
+      POSTGRES_DB: auth
+    volumes:
+      - auth-db-data:/var/lib/postgresql/data
+
+  postgres_library:
+    image: postgres
+    restart: always
+    networks:
+      envoymesh:
+        aliases:
+          - postgres_library
+    environment:
+      POSTGRES_PASSWORD: P@ssword
+      POSTGRES_DB: library
+    volumes:
+      - library-db-data:/var/lib/postgresql/data
+
+  web:
+      build:
+        context: .
+        dockerfile: ./web-client/Dockerfile
+      restart: always
+      ports:
+        - 8080:80
+
+networks:
+  envoymesh: {}
+
+volumes:
+  library-db-data: {}
+  auth-db-data: {}

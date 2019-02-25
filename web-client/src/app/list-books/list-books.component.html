@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Publisher</th>
+          <th>Author</th>
+          <th>Available Copies</th>
+          <th>Loaned Copies</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td><a [routerLink]="'/books/' + item.getBookId() + '/loans'" class="is-link">{{ item.getBookTitle() }}</a></td>
+          <td>{{ item.getPublisherName() }}</td>
+          <td>{{ getAuthors(item) }} </td>
+          <td>{{ item.getAvailableCopies() }}</td>
+          <td>{{ item.getLoanedCopies() }}</td>
+          <td><button class="button is-primary" [routerLink]="'/books/' + item.getBookId() + '/loan'"><strong>Loan</strong></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

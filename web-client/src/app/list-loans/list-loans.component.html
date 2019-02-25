@@ -1,0 +1,21 @@
+<section class="section">
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Loan date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td>{{ item.getUserName() }}</td>
+          <td>{{ item.getEmail() }}</td>
+          <td>{{ item.getLoanDate().toDate() }}</td>
+          <td><button class="button is-primary" (click)="onReturnClicked(item)"><strong>Return</strong></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

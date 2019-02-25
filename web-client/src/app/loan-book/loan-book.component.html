@@ -1,0 +1,30 @@
+<section class="section">
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          <p> {{ bookTitle }} </p>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">User</label>
+        <div class="control">
+          <div class="select">
+            <select formControlName="userId" [ngClass]="{'is-danger': isInvalid(userId)}">
+              <option *ngFor="let user of users" [value]="user.getId()">{{ getUserDisplayText(user) }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" (click)="onSubmit()">Loan</button>
+        </div>
+        <div class="control">
+          <button class="button is-text" (click)="goBack()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

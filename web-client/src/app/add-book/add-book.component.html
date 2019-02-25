@@ -1,0 +1,46 @@
+<section class="section">
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="field">
+        <label class="label">Title</label>
+        <div class="control">
+          <input type="text" class="input" formControlName="title" [ngClass]="{'is-danger': isInvalid(title)}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Authors</label>
+        <div class="control">
+          <div class="select is-multiple">
+            <select multiple formControlName="authorIds" [ngClass]="{'is-danger': isInvalid(authorIds)}">
+              <option *ngFor="let author of authors" [value]="author.getAuthorId()">{{ author.getFirstName() + ' ' + author.getLastName() }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Publisher</label>
+        <div class="control">
+          <div class="select">
+            <select formControlName="publisherId" [ngClass]="{'is-danger': isInvalid(publisherId)}">
+              <option *ngFor="let publisher of publishers" [value]="publisher.getPublisherId()">{{ publisher.getPublisherName() }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Copies</label>
+        <div class="control">
+          <input type="number" class="input" formControlName="copies">
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" (click)="onSubmit()">Save</button>
+        </div>
+        <div class="control">
+          <button class="button is-text" (click)="goBack()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

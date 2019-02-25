@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package library;
+
+service LibraryService {
+    rpc AddBook(AddBookRequest) returns (AddBookResponse) {}
+    rpc GetBook(GetBookRequest) returns (GetBookResponse) {}
+    rpc ListBooks(ListBooksRequest) returns (stream ListBooksResponse) {}
+    rpc AddAuthor(AddAuthorRequest) returns (AddAuthorResponse) {}
+    rpc ListAuthors(ListAuthorsRequest) returns (stream ListAuthorsResponse) {}
+    rpc LoanBook(LoanBookRequest) returns (LoanBookResponse) {}
+    rpc ReturnBook(ReturnBookRequest) returns (ReturnBookResponse) {}
+    rpc ListCurrentBookLoans(ListCurrentBookLoansRequest) returns (stream ListCurrentBookLoansResponse) {}
+    rpc ListPublishers(ListPublishersRequest) returns (stream ListPublishersResponse) {}
+    rpc AddPublisher(AddPublisherRequest) returns (AddPublisherResponse) {}
+}
+
+message ListAuthorsRequest {}
+
+message ListAuthorsResponse {
+    int32 author_id = 1;
+    string first_name = 2;
+    string last_name = 3;
+}
+
+message ListPublishersRequest {}
+
+message ListPublishersResponse {
+    int32 publisher_id = 1;
+    string publisher_name = 2;
+}
+
+message AddPublisherRequest {
+    string publisher_name = 1;
+}
+
+message AddPublisherResponse {
+    int32 publisher_id = 1;
+}
+
+message ListCurrentBookLoansRequest {
+    int32 book_id = 1;
+}
+
+message ListCurrentBookLoansResponse {
+    int32 loan_id = 1;
+    string user_name = 2;
+    string email = 3;
+    google.protobuf.Timestamp loan_date = 4;
+}
+
+message Author {
+    string first_name = 1;
+    string last_name = 2;
+}
+
+message AddBookRequest {
+    string title = 1;
+    repeated int32 authors = 2;
+    int32 publisher_id = 3;
+    int32 copies = 4;
+}
+
+message AddBookResponse {
+    int32 book_id = 1;
+}
+
+message GetBookRequest {
+    int32 book_id = 1;
+}
+
+message GetBookResponse {
+    int32 book_id = 1;
+    string book_title = 2;
+    repeated Author authors = 3;
+    int32 available_copies = 4;
+    int32 loaned_copies = 5;
+}
+
+message ListBooksRequest {}
+
+message ListBooksResponse {
+    int32 book_id = 1;
+    string book_title = 2;
+    repeated Author authors = 3;
+    int32 available_copies = 4;
+    int32 loaned_copies = 5;
+    string publisher_name = 6;
+}
+
+message AddAuthorRequest {
+    string first_name = 1;
+    string last_name = 2;
+}
+
+message AddAuthorResponse {
+    int32 id = 1;
+}
+
+message LoanBookRequest {
+    int32 book_id = 1;
+    int32 user_id = 2;
+}
+
+message LoanBookResponse {
+    int32 id = 1;
+}
+
+message ReturnBookRequest {
+    int32 loan_id = 1;
+}
+
+message ReturnBookResponse {}

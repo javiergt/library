@@ -1,0 +1,18 @@
+<section class="section">
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="field">
+        <label class="label">Publisher Name</label>
+        <div class="control">
+          <input class="input" [ngClass]="{'is-danger': isInvalid(publisherName)}" type="text" formControlName="publisherName">
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" (click)="onSubmit()">Save</button>
+          <button class="button is-text" (click)="goBack()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

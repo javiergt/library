@@ -1,0 +1,6 @@
+<div class="container" *ngIf="display">
+  <div class="notification" [ngClass]="getNotificationTypeClass()">
+    <button class="delete" (click)="onCloseClick()"></button>
+    {{ notification.message }}
+  </div>
+</div>

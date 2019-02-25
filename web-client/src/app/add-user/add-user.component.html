@@ -1,0 +1,30 @@
+<section class="section">
+  <div class="container">
+    <form [formGroup]="form">
+      <div class="field">
+        <label class="label">First Name</label>
+        <div class="control">
+          <input class="input" [ngClass]="{'is-danger': isInvalid(firstName)}" type="text" formControlName="firstName">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Last Name</label>
+        <div class="control">
+          <input class="input" [ngClass]="{'is-danger': isInvalid(lastName)}" type="text" formControlName="lastName">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" [ngClass]="{'is-danger': isInvalid(email)}" type="email" formControlName="email">
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" (click)="onSubmit()">Save</button>
+          <button class="button is-text" (click)="goBack()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
